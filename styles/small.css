@@ -16,7 +16,6 @@
   --wrap: 68rem;
 }
 
-
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -91,7 +90,6 @@ h1, h2, h3 {
   margin: 0 0 0.6em;
 }
 
-
 .site-header {
   background: var(--ink);
   color: var(--paper);
@@ -103,6 +101,7 @@ h1, h2, h3 {
 
 .header-inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding-block: 0.9rem;
@@ -135,7 +134,7 @@ h1, h2, h3 {
 }
 
 .nav-toggle {
-  display: none;
+  display: block;
   background: transparent;
   border: 1px solid var(--blueprint);
   border-radius: var(--radius);
@@ -159,7 +158,6 @@ h1, h2, h3 {
 .nav-toggle-bar::before { top: -7px; }
 .nav-toggle-bar::after { top: 7px; }
 
-
 .nav-toggle.is-open {
   background: var(--blueprint);
   border-color: var(--blueprint);
@@ -176,20 +174,30 @@ h1, h2, h3 {
   transform: rotate(-45deg);
 }
 
+.primary-nav {
+  display: none;
+  width: 100%;
+}
+.primary-nav.is-open {
+  display: block;
+}
+
 .primary-nav ul {
   list-style: none;
   display: flex;
-  gap: 1.75rem;
+  flex-direction: column;
+  gap: 0;
   margin: 0;
-  padding: 0;
+  padding: 0.5rem 0;
 }
 
 .primary-nav a {
+  display: block;
   color: var(--paper);
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
-  padding-block: 0.3rem;
+  padding-block: 0.6rem;
   border-bottom: 2px solid transparent;
 }
 
@@ -203,6 +211,7 @@ h1, h2, h3 {
 }
 
 
+
 .page-title {
   padding-top: 1.75rem;
   margin-bottom: 0;
@@ -210,9 +219,10 @@ h1, h2, h3 {
 }
 
 
+
 .hero {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
   padding-block: 1.5rem 2.75rem;
   align-items: start;
@@ -232,7 +242,6 @@ h1, h2, h3 {
   padding-inline: 1.75rem;
 }
 .about-card p:first-of-type { margin-top: 1.5rem; }
-
 
 .card-title {
   margin: 0;
@@ -260,6 +269,8 @@ h1, h2, h3 {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
+  justify-self: stretch;
+  max-width: 22rem;
 }
 
 .photo-frame {
@@ -272,6 +283,7 @@ h1, h2, h3 {
   height: auto;
   margin-inline: auto;
 }
+
 
 
 .courses {
@@ -294,12 +306,14 @@ h1, h2, h3 {
 
 .filter-bar {
   display: flex;
+  flex-wrap: nowrap;
   gap: 0.6rem;
   margin-bottom: 1.25rem;
-  flex-wrap: wrap;
 }
 
 .filter-btn {
+  flex: 1;
+  text-align: center;
   font-family: var(--font-mono);
   font-size: 0.8rem;
   background: #fff;
@@ -324,16 +338,24 @@ h1, h2, h3 {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--line);
+  border-top: 0;
 }
 
 .course-row {
   display: grid;
-  grid-template-columns: 6rem 1fr 6rem 8rem;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "code    status"
+    "title   title"
+    "credits credits";
   align-items: center;
   gap: 1rem;
-  padding: 0.85rem 0.25rem;
-  border-bottom: 1px solid var(--line);
+  row-gap: 0.25rem;
+  background: #f4f6f7;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.6rem;
 }
 
 .course-row.is-hidden {
@@ -341,23 +363,27 @@ h1, h2, h3 {
 }
 
 .course-code {
+  grid-area: code;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--blueprint-dark);
 }
 
 .course-title {
+  grid-area: title;
   font-weight: 500;
 }
 
 .course-credits {
+  grid-area: credits;
   font-size: 0.85rem;
   color: var(--slate);
 }
 
 .course-status {
+  grid-area: status;
+  justify-self: end;
   font-size: 0.8rem;
-  justify-self: start;
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
   border: 1px solid var(--line);
